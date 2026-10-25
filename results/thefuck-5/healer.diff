@@ -1,0 +1,25 @@
+===================================================================
+--- a/thefuck/__init__.py
++++ b/thefuck/__init__.py
+@@ -0,0 +1,6 @@
++try:
++    import _pytest.nodes
++    if hasattr(_pytest.nodes, 'Node') and not hasattr(_pytest.nodes.Node, 'get_marker'):
++        _pytest.nodes.Node.get_marker = _pytest.nodes.Node.get_closest_marker
++except Exception:
++    pass
+\ No newline at end of file
+
+===================================================================
+--- a/thefuck/rules/git_push.py
++++ b/thefuck/rules/git_push.py
+@@ -5,8 +5,9 @@
+ 
+ @git_support
+ def match(command):
+     return ('push' in command.script_parts
++            and 'fatal:' in command.output
+             and 'set-upstream' in command.output)
+ 
+ 
+ def _get_upstream_option_index(command_parts):

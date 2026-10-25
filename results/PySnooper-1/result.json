@@ -1,0 +1,14 @@
+{
+  "bug": "PySnooper/1",
+  "repository": "https://github.com/cool-RR/PySnooper",
+  "buggy_commit": "e21a31162f4c54be693d8ca8260e42393b39abd3",
+  "fixed_commit": "56f22f8ffe1c6b2be4d2cf3ad1987fdb66113da2",
+  "tests": [
+    "tests/test_chinese.py::test_chinese"
+  ],
+  "healer_status": "unresolved",
+  "result": "excluded",
+  "iterations": 2,
+  "repairs": 1,
+  "excluded_because": "BugsInPy does not declare the test dependency `python_toolbox` for this bug (empty requirements.txt, no install in setup.sh): the tests cannot even be collected."
+}

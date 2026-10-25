@@ -1,0 +1,33 @@
+===================================================================
+--- a/thefuck/__init__.py
++++ b/thefuck/__init__.py
+@@ -0,0 +1,12 @@
++try:
++    import pytest
++    try:
++        from _pytest.nodes import Node
++        if not hasattr(Node, 'get_marker'):
++            Node.get_marker = Node.get_closest_marker
++    except Exception:
++        pass
++    if hasattr(pytest, 'Item') and not hasattr(pytest.Item, 'get_marker'):
++        pytest.Item.get_marker = pytest.Item.get_closest_marker
++except Exception:
++    pass
+\ No newline at end of file
+
+===================================================================
+--- a/thefuck/rules/git_branch_exists.py
++++ b/thefuck/rules/git_branch_exists.py
+@@ -13,9 +13,10 @@
+ @git_support
+ @eager
+ def get_new_command(command):
+     branch_name = re.findall(
+-        r"fatal: A branch named '([^']*)' already exists.", command.output)[0]
++        r"fatal: A branch named '(.*)' already exists.", command.output)[0]
++    branch_name = branch_name.replace("'", r"\'")
+     new_command_templates = [['git branch -d {0}', 'git branch {0}'],
+                              ['git branch -d {0}', 'git checkout -b {0}'],
+                              ['git branch -D {0}', 'git branch {0}'],
+                              ['git branch -D {0}', 'git checkout -b {0}'],

@@ -1,0 +1,12 @@
+===================================================================
+--- a/pysnooper/pycompat.py
++++ b/pysnooper/pycompat.py
+@@ -50,6 +50,6 @@
+ if PY3:
+     string_types = (str,)
+     text_type = str
+ else:
+-    string_types = (basestring,)
+-    text_type = unicode
++    string_types = (basestring,)  # noqa: F821
++    text_type = unicode  # noqa: F821

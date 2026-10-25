@@ -1,0 +1,30 @@
+===================================================================
+--- a/thefuck/__init__.py
++++ b/thefuck/__init__.py
+@@ -0,0 +1,10 @@
++try:
++    import pytest
++
++    def _get_marker(self, name):
++        return self.get_closest_marker(name)
++
++    if hasattr(pytest, "Item") and not hasattr(pytest.Item, "get_marker"):
++        pytest.Item.get_marker = _get_marker
++except Exception:
++    pass
+\ No newline at end of file
+
+===================================================================
+--- a/thefuck/rules/php_s.py
++++ b/thefuck/rules/php_s.py
+@@ -2,9 +2,9 @@
+ 
+ 
+ @for_app('php')
+ def match(command):
+-    return "php -s" in command.script
++    return '-s' in command.script.split()
+ 
+ 
+ def get_new_command(command):
+     return replace_argument(command.script, "-s", "-S")

@@ -1,0 +1,14 @@
+{
+  "bug": "thefuck/8",
+  "repository": "https://github.com/nvbn/thefuck",
+  "buggy_commit": "449cb9a00693c8b4d97d5fda8d732cf0978e117e",
+  "fixed_commit": "be48f027847161f907def8987706041c65a1fd58",
+  "tests": [
+    "tests/rules/test_dnf_no_such_command.py::test_get_new_command",
+    "tests/rules/test_dnf_no_such_command.py::test_get_operations"
+  ],
+  "healer_status": "unresolved",
+  "result": "not fixed",
+  "iterations": 4,
+  "repairs": 0
+}

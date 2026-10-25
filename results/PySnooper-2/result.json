@@ -1,0 +1,14 @@
+{
+  "bug": "PySnooper/2",
+  "repository": "https://github.com/cool-RR/PySnooper",
+  "buggy_commit": "e21a31162f4c54be693d8ca8260e42393b39abd3",
+  "fixed_commit": "814abc34a098c1b98cb327105ac396f985d2413e",
+  "tests": [
+    "tests/test_pysnooper.py::test_custom_repr_single"
+  ],
+  "healer_status": "unresolved",
+  "result": "excluded",
+  "iterations": 2,
+  "repairs": 1,
+  "excluded_because": "The fixed-commit test imports a helper module (`tests/mini_toolbox`) that does not exist at the buggy commit, so the test cannot be collected."
+}

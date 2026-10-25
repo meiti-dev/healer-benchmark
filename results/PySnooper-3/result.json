@@ -1,0 +1,14 @@
+{
+  "bug": "PySnooper/3",
+  "repository": "https://github.com/cool-RR/PySnooper",
+  "buggy_commit": "6e3d797be3fa0a746fb5b1b7c7fea78eb926c208",
+  "fixed_commit": "15555ed760000b049aff8fecc79d29339c1224c3",
+  "tests": [
+    "tests/test_pysnooper.py::test_file_output"
+  ],
+  "healer_status": "unresolved",
+  "result": "excluded",
+  "iterations": 2,
+  "repairs": 1,
+  "excluded_because": "The test needs `python_toolbox`, but BugsInPy only installs `decorator` for this bug: the tests cannot even be collected."
+}

@@ -1,0 +1,28 @@
+===================================================================
+--- a/thefuck/rules/dnf_no_such_command.py
++++ b/thefuck/rules/dnf_no_such_command.py
+@@ -18,9 +18,9 @@
+     # The regex has to be a bytes-style regex since reading from a file
+     # like stdin returns a bytes-style object and a string-style regex
+     # wouldn't work.
+     operation_regex = re.compile(b'^([a-z-]+) +', re.MULTILINE)
+-    return operation_regex.findall(help_text_lines)
++    return [op.decode('utf-8') for op in operation_regex.findall(help_text_lines)]
+ 
+ 
+ def _get_operations():
+     proc = subprocess.Popen(["dnf", '--help'],
+
+===================================================================
+--- a/thefuck/__init__.py
++++ b/thefuck/__init__.py
+@@ -0,0 +1,8 @@
++try:
++    import pytest
++    from _pytest.nodes import Node
++
++    if not hasattr(Node, 'get_marker'):
++        Node.get_marker = Node.get_closest_marker
++except Exception:
++    pass
+\ No newline at end of file

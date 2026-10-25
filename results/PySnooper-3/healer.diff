@@ -1,0 +1,21 @@
+===================================================================
+--- a/pysnooper/pysnooper.py
++++ b/pysnooper/pysnooper.py
+@@ -22,9 +22,9 @@
+             stderr = sys.stderr
+             stderr.write(s)
+     elif isinstance(output, (pycompat.PathLike, str)):
+         def write(s):
+-            with open(output_path, 'a') as output_file:
++            with open(output, 'a') as output_file:
+                 output_file.write(s)
+     else:
+         assert isinstance(output, utils.WritableStream)
+         def write(s):
+@@ -71,6 +71,4 @@
+                     depth=depth, prefix=prefix):
+             return function(*args, **kwargs)
+ 
+     return decorate
+-
+-

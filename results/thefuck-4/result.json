@@ -1,0 +1,13 @@
+{
+  "bug": "thefuck/4",
+  "repository": "https://github.com/nvbn/thefuck",
+  "buggy_commit": "68949a592248913b52bfd50036893553153fcddb",
+  "fixed_commit": "8db3cf604865e559090412ce80b0640e290ad83a",
+  "tests": [
+    "tests/shells/test_fish.py::TestFish::test_get_aliases"
+  ],
+  "healer_status": "production_ready",
+  "result": "fixed",
+  "iterations": 4,
+  "repairs": 2
+}

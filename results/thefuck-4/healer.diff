@@ -1,0 +1,37 @@
+===================================================================
+--- a/thefuck/__init__.py
++++ b/thefuck/__init__.py
+@@ -0,0 +1,7 @@
++try:
++    from _pytest.nodes import Node
++
++    if not hasattr(Node, 'get_marker'):
++        Node.get_marker = getattr(Node, 'get_closest_marker', lambda self, name: None)
++except Exception:
++    pass
+\ No newline at end of file
+
+===================================================================
+--- a/thefuck/shells/fish.py
++++ b/thefuck/shells/fish.py
+@@ -21,9 +21,19 @@
+     aliases = {}
+     proc = Popen(['fish', '-ic', 'alias'], stdout=PIPE, stderr=DEVNULL)
+     alias_out = proc.stdout.read().decode('utf-8').strip().split('\n')
+     for alias in alias_out:
+-        name, value = alias.replace('alias ', '', 1).split(' ', 1)
++        if not alias:
++            continue
++        alias = alias.replace('alias ', '', 1)
++        pos_eq = alias.find('=')
++        pos_sp = alias.find(' ')
++        if pos_eq != -1 and (pos_sp == -1 or pos_eq < pos_sp):
++            name, value = alias.split('=', 1)
++        elif pos_sp != -1:
++            name, value = alias.split(' ', 1)
++        else:
++            continue
+         if name not in overridden:
+             aliases[name] = value
+     return aliases
+ 

@@ -1,0 +1,13 @@
+===================================================================
+--- a/pysnooper/pycompat.py
++++ b/pysnooper/pycompat.py
+@@ -50,6 +50,7 @@
+ if PY3:
+     string_types = (str,)
+     text_type = str
+ else:
+-    string_types = (basestring,)
+-    text_type = unicode
++    import __builtin__
++    string_types = (__builtin__.basestring,)
++    text_type = __builtin__.unicode

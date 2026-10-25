@@ -1,0 +1,13 @@
+{
+  "bug": "thefuck/7",
+  "repository": "https://github.com/nvbn/thefuck",
+  "buggy_commit": "64d6835e15a22cf8803d398cbb593f748c550e8a",
+  "fixed_commit": "75d2c43997ca703150cbdb4c46ed7b2e2e71fd11",
+  "tests": [
+    "tests/rules/test_php_s.py::test_match"
+  ],
+  "healer_status": "production_ready",
+  "result": "fixed",
+  "iterations": 5,
+  "repairs": 2
+}

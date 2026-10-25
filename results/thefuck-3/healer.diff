@@ -1,0 +1,12 @@
+===================================================================
+--- a/thefuck/__init__.py
++++ b/thefuck/__init__.py
+@@ -0,0 +1,7 @@
++try:
++    from _pytest.nodes import Node
++
++    if not hasattr(Node, 'get_marker'):
++        Node.get_marker = getattr(Node, 'get_closest_marker', lambda self, name: None)
++except Exception:
++    pass
+\ No newline at end of file

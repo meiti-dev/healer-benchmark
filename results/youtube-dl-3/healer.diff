@@ -1,0 +1,78 @@
+===================================================================
+--- a/devscripts/buildserver.py
++++ b/devscripts/buildserver.py
+@@ -140,16 +140,28 @@
+ 
+ def win_service_handler(stop_event, *args):
+     try:
+         raise ValueError('Handler called with args ' + repr(args))
+-        TODO
++        # TODO
+     except Exception as e:
+         tb = traceback.format_exc()
+         msg = str(e) + '\n' + tb
+-        win_service_report_event(service_name, msg, is_error=True)
++        win_service_report_event(SVCNAME, msg, is_error=True)
+         raise
+ 
+ 
++class SERVICE_STATUS(ctypes.Structure):
++    _fields_ = [
++        ('dwServiceType', ctypes.c_uint),
++        ('dwCurrentState', ctypes.c_uint),
++        ('dwControlsAccepted', ctypes.c_uint),
++        ('dwWin32ExitCode', ctypes.c_uint),
++        ('dwServiceSpecificExitCode', ctypes.c_uint),
++        ('dwCheckPoint', ctypes.c_uint),
++        ('dwWaitHint', ctypes.c_uint),
++    ]
++
++
+ def win_service_set_status(handle, status_code):
+     svcStatus = SERVICE_STATUS()
+     svcStatus.dwServiceType = SERVICE_WIN32_OWN_PROCESS
+     svcStatus.dwCurrentState = status_code
+@@ -170,9 +182,9 @@
+         if not h:
+             raise OSError('Handler registration failed: %s' %
+                           ctypes.FormatError())
+ 
+-        TODO
++        # TODO
+     except Exception as e:
+         tb = traceback.format_exc()
+         msg = str(e) + '\n' + tb
+         win_service_report_event(service_name, msg, is_error=True)
+
+===================================================================
+--- a/setup.py
++++ b/setup.py
+@@ -32,10 +32,12 @@
+     'dll_excludes': ['w9xpopen.exe', 'crypt32.dll'],
+ }
+ 
+ # Get the version from youtube_dl/version.py without importing the package
++exec_dict = {}
+ exec(compile(open('youtube_dl/version.py').read(),
+-             'youtube_dl/version.py', 'exec'))
++             'youtube_dl/version.py', 'exec'), exec_dict)
++__version__ = exec_dict['__version__']
+ 
+ DESCRIPTION = 'YouTube video downloader'
+ LONG_DESCRIPTION = 'Command-line program to download videos from YouTube.com and other video sites'
+ 
+
+===================================================================
+--- a/youtube_dl/extractor/pandatv.py
++++ b/youtube_dl/extractor/pandatv.py
+@@ -35,9 +35,9 @@
+         config = self._download_json(
+             'https://www.panda.tv/api_room?roomid=%s' % video_id, video_id)
+ 
+         error_code = config.get('errno', 0)
+-        if error_code is not 0:
++        if error_code != 0:
+             raise ExtractorError(
+                 '%s returned error %s: %s'
+                 % (self.IE_NAME, error_code, config['errmsg']),
+                 expected=True)

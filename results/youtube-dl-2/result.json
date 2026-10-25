@@ -1,0 +1,13 @@
+{
+  "bug": "youtube-dl/2",
+  "repository": "https://github.com/ytdl-org/youtube-dl",
+  "buggy_commit": "84f085d4bdb66ee025fb337bcd571eab7469da97",
+  "fixed_commit": "9d6ac71c27b1dfb662c795ef598dbfd0286682da",
+  "tests": [
+    "test/test_InfoExtractor.py::TestInfoExtractor::test_parse_mpd_formats"
+  ],
+  "healer_status": "unresolved",
+  "result": "not fixed",
+  "iterations": 8,
+  "repairs": 3
+}
